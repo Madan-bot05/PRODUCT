@@ -7,7 +7,7 @@ import Footer from '../../components/footer/Footer'
 function HomePage() {
   return (
     <div>
-        <MainCarosel/>
+        <MainCarosel className="mt-15"/>
         <div className='space-y-15 py-20 flex flex-col justify-center px-10 lg:px-10'>
         <HomeSectionCarosel data={mens_kurta} sectionName={"Men's kurta"}/>
         <HomeSectionCarosel data={mens_kurta} sectionName={"Men's Shoes"}/>

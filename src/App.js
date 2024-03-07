@@ -27,9 +27,9 @@ function App() {
 
     <Navigation/>
     {/* <Product/> */}
-    {/* <HomePage/> */}
+    <HomePage/>
     {/* <ProductDetails/> */}
-    <Cart/>
+    {/* <Cart/> */}
     {/* <Checkout/> */}
     {/* <Order/> */}
     {/* <OrderDetails/> */}
