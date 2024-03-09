@@ -159,15 +159,15 @@ export default function Navigation() {
     setOpenAuthModal(true)
   }
   const handleCategoryClick =(categories, sections, item ,close)=>{
-    navigate('/${categories.id}/${sections.id}/${item.id}');
+    navigate(`/${categories.id}/${sections.id}/${item.id}`);
     close();
   }
 
   return (
-    <div className="bg-white fixed top-0 left-0 w-full z-50">
+    <div className="bg-white fixed top-0 left-0 w-full z-50 shadow-md">
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-40 lg:hidden" onClose={setOpen}>
+        <Dialog as="div" className="relative  lg:hidden" onClose={setOpen}>
           <Transition.Child
             as={Fragment}
             enter="transition-opacity ease-linear duration-300"
@@ -450,7 +450,7 @@ export default function Navigation() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  {false ? (
+                  {true ? (
                     <div>
                       <Avatar
                        className="text-white"
@@ -476,7 +476,7 @@ export default function Navigation() {
                         <MenuItem onClick={handleUserCloserMenu}>
                           Profile
                         </MenuItem>
-                        <MenuItem>
+                        <MenuItem onClick={()=>navigate("/account/order")}>
                         My Orders
                         </MenuItem>
                         <MenuItem> LogOut</MenuItem>

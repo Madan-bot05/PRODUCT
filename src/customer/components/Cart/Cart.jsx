@@ -2,10 +2,16 @@ import React from "react";
 import CartItem from "./CartItem";
 import { Button } from "@mui/material";
 import './button.css';
+import { useNavigate } from "react-router-dom";
+
 
 function Cart() {
+  const navigate=useNavigate();
+const handleCheckOut=()=>{
+  navigate("/checkout?step=2")
+}
   return (
-    <div className="mt-40">
+    <div className="mt-25">
       <div className="lg:grid grid-cols-3 lg:px-10 relative mt-5">
         <div className="col-span-2">
           {[1,1,1,1].map((item)=><CartItem/>)}
@@ -33,7 +39,7 @@ function Cart() {
                 <span className="text-green-600">$5454856</span>
               </div>
             </div>
-            <button className="custom-button w-full mt-5"> Check Out</button>
+            <button onClick={handleCheckOut} className="custom-button w-full mt-5"> Check Out</button>
           </div>
         </div>
       </div>
