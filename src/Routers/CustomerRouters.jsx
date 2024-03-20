@@ -15,6 +15,8 @@ function CustomerRouters() {
     <div>
         <div>
           <Routes>
+          <Route path='/login' element={<HomePage/>}></Route>
+          <Route path='/register' element={<HomePage/>}></Route>
             <Route path='/' element={<HomePage/>}></Route>
             <Route path='/cart' element={<Cart/>}></Route>
             <Route path='/:levelOne/:levelTwo/:levelThree' element={<Product/>}></Route>

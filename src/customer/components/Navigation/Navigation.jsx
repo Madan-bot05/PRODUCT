@@ -1,11 +1,13 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import MainCarosel from '../HomeCarosel/MainCarosel'
 import { Avatar, Button, Menu, MenuItem } from '@mui/material'
 import { deepPurple } from '@mui/material/colors'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
 import AuthModal from '../Auth/AuthModal'
+import { getUser, logout } from '../../../state/Auth/Action'
 
 
 const navigation = {
@@ -145,6 +147,9 @@ export default function Navigation() {
   const [anchorEl , setAnchorE1]=useState(null)
   const openUserMenu=Boolean(anchorEl);
   const jwt= localStorage.getItem("jwt");
+  const {auth}=useSelector((store)=>store);
+  const dispatch=useDispatch();
+  const location=useLocation()
 
   const handleUserClick=(event) => {
     setAnchorE1(event.currentTarget);
@@ -161,6 +166,36 @@ export default function Navigation() {
   const handleCategoryClick =(categories, sections, item ,close)=>{
     navigate(`/${categories.id}/${sections.id}/${item.id}`);
     close();
+  }
+
+
+
+  
+  useEffect(()=>{
+    if(jwt){
+        dispatch(getUser(jwt));
+    }
+},[jwt]);
+
+
+  useEffect(()=>{
+    if(auth.user){
+      handleClose()
+    }
+    if(location.pathname==="/login" || location.pathname==="/register"){
+      navigate(-1)
+    }
+
+  },[auth.user]);
+
+  // const handleLogin = (userData) => {
+  //   console.log("handleLogin called with userData:", userData);
+  //   dispatch(login(userData));
+  // };
+
+  const handleLogout=()=>{
+    dispatch(logout())
+    handleUserCloserMenu()
   }
 
   return (
@@ -435,6 +470,11 @@ export default function Navigation() {
                       )}
                     </Popover>
                   ))}
+                                      {/* <Button
+                      onClick={handleOpen}
+                       className="text-sm font-medium text-gray-700 hover:text-gray-800">
+                        SignIn
+                    </Button> */}
 
                   {navigation.pages.map((page) => (
                     <a
@@ -450,7 +490,7 @@ export default function Navigation() {
 
               <div className="ml-auto flex items-center">
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                  {true ? (
+                    {auth.user ? (
                     <div>
                       <Avatar
                        className="text-white"
@@ -463,7 +503,10 @@ export default function Navigation() {
                         color:"white",
                         cursor:"pointer"
                        }}
-                       ></Avatar>
+                       >
+                        
+                        {auth.user?.email[0].toUpperCase()}
+                       </Avatar>
 
                        <Menu 
                        id="basic-menu"
@@ -479,7 +522,7 @@ export default function Navigation() {
                         <MenuItem onClick={()=>navigate("/account/order")}>
                         My Orders
                         </MenuItem>
-                        <MenuItem> LogOut</MenuItem>
+                        <MenuItem onClick={handleLogout}> LogOut</MenuItem>
                        </Menu>
                     </div>
                   ) : (
