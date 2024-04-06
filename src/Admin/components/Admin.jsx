@@ -11,12 +11,18 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Dashboard } from '@mui/icons-material';
+import CreateProductForm from './CreateProductForm';
+import ProductsTable from './ProductsTable';
+import OrdersTable from './OrdersTable';
+import CustomersTable from './CustomersTable';
+import AdminDashboard from './Dashboard';
 
 
 const menu=[
     {name: "Dashboard",path:"/admin",icon:<DashboardIcon/>},
     {name: "Products",path:"/admin/products",icon:<BorderStyleIcon/>},
-    {name: "Customers",path:"/admin/customeres",icon:<PersonOutlineIcon/>},
+    {name: "Customers",path:"/admin/customers",icon:<PersonOutlineIcon/>},
     {name: "Orders",path:"/admin/orders",icon:<InventoryIcon/>},
     {name: "AddProduct",path:"/admin/product/create",icon:<AddBoxIcon/>},
     // {name: "",path:""},
@@ -70,29 +76,28 @@ const Admin = () => {
 
   return (
     <div>
-        <Box sx={{display:`${isLargeScreen} ? "flex":"block"`}}>
+        <div className='flex h-[100vh]' >
             <CssBaseline/>
 
-            <Drawer
-            variant='permanent'
-            sx={{
-                height:"100vh",
-                width:240,
-                flexShrink:0
-            }}
+            <div className=' w-[15%] border border-r-gray-300 h-full'
+           
           >
             {drawer}
-          </Drawer>
-          <Box>
+          </div>
+          <div className='w-[85%] '>
 
             <Routes>
 
-              
+              <Route path='/' element={<AdminDashboard/>}></Route>
+              <Route path='/product/create' element={<CreateProductForm/>}></Route>
+              <Route path='/products' element={<ProductsTable/>}></Route>
+              <Route path='/orders' element={<OrdersTable/>}></Route>
+              <Route path='/customers' element={<CustomersTable/>}></Route>
 
             </Routes>
 
-          </Box>
-        </Box>
+          </div>
+        </div>
 
     </div>
   )
