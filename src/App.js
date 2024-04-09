@@ -16,16 +16,18 @@ import {
 import Order from './customer/components/Order/Order';
 import OrderDetails from './customer/components/Order/OrderDetails';
 import CustomerRouters from './Routers/CustomerRouters';
+import AdminRouters from './Routers/AdminRouters';
 
 function App() {
   return (
     <div>
       <div className="">
-      <Navigation/>
+      {/* <Navigation/> */}
       </div>
       <div className="pt-20">
       <Routes>
         <Route path='/*' element={<CustomerRouters/>}></Route>
+        <Route path='/admin/*' element={<AdminRouters/>}></Route>
       </Routes>
       </div>
     
