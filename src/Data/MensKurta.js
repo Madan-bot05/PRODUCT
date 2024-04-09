@@ -1010,7 +1010,7 @@ export const mens_kurta=[
     {
         "imageUrl": "https://rukminim1.flixcart.com/image/612/612/l3khsi80/kurta/1/c/6/l-mtml0042-328-manthan-original-imagenvzkm3v9vxh.jpeg?q=70",
         "brand": "Manthan",
-        "title": "Men Printed Cotton Blend Ethnic Dress",
+        "title": " Printed CottonMen Blend Ethnic Dress",
         "color": "Orange",
         "discountedPrice": 948,
         "price": 1299,

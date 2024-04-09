@@ -1,11 +1,18 @@
 import './button.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 import { Button, Grid, Rating } from "@mui/material";
 import { mens_kurta } from "../../../Data/MensKurta";
 import HomeSectionCard from "../HomeSectionCard/HomeSectionCard";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'
+import { useDispatch,useSelector } from 'react-redux';
+
+import { useParams } from 'react-router-dom';
+import { findProductsById } from '../../../state/Product/Action';
+import { store } from '../../../state/store';
+import { addItemToCart } from '../../../state/Cart/Action';
+;
 
 const product = {
   name: "Basic Tee 6-Pack",
@@ -61,12 +68,34 @@ function classNames(...classes) {
 }
 
 export default function ProductDetails() {
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+  // const [selectedColor, setSelectedColor] = useState();
+  const [selectedSize, setSelectedSize] = useState("");
   const navigate =useNavigate();
   const handleAddToCart=()=>{
+    const data={productId:params.productId,size:selectedSize.name}
+    console.log("data onn",data);
+    dispatch(addItemToCart(data))
     navigate("/cart")
   }
+  const params=useParams()
+  const dispatch=useDispatch();
+  const {products}=useSelector(store=>store)
+  console.log("params  uiqwqwbuib",params.productId)
+  console.log("product link",)
+
+  useEffect(()=>{
+    const data ={productId:params.productId}
+    dispatch(findProductsById(data))
+  },[params.productId])
+  
+
+
+  console.log("image url",products.product?.imageUrl)
+  console.log("image url in product",products.product)
+  const imageUrl = products.product?.data?.imageUrl;
+console.log("image url", imageUrl);
+
+
 
   return (
     <div className="bg-white">
@@ -115,21 +144,12 @@ export default function ProductDetails() {
           <div className="flex flex-col items-center">
             <div className="overflow-hidden rounded-lg max-w-[30] max-h-[35rem]">
               <img
-                src={product.images[0].src}
+                src={products.product?.data?.imageUrl}
                 alt={product.images[0].alt}
                 className="h-full w-full object-cover object-center"
               />
             </div>
             <div className="flex flex-wrap space-x-5 justify-center">
-              {product.images.map((item) => (
-                <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg max-h-[5rem] mt-4">
-                  <img
-                    src={item.src}
-                    alt={item.alt}
-                    className="h-full w-full object-cover object-center"
-                  />
-                </div>
-              ))}
             </div>
           </div>
 
@@ -137,10 +157,10 @@ export default function ProductDetails() {
           <div className="lg:col-span-1 max-auto max-w-2xl px-4 pb-16 lg:max-w-7xl lg:px-8 lg:pb-24">
             <div className="lg:col-span-2 ">
               <h1 className="text-lg lg:text-xl font-semibold text-gray-900 ">
-                Universal
+                {products.product?.data?.brand}
               </h1>
               <h1 className="text:lg lg:text-xl text-gray-900 opacity-60 pt-1">
-                make dyiebhdbw uy7fd65dwyxbkuq uyuyg79weydu
+              {products.product?.data?.title}
               </h1>
             </div>
 
@@ -148,7 +168,7 @@ export default function ProductDetails() {
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
               <div className="flex space-x-5 items-center text-lg lg:text-xl text-gray-900 mt-6">
-                <p className="font-semibold"> 133</p>
+                <p className="font-semibold"> {products.product?.data?.price} </p>
                 <p className="opacity-50 line-through"> $133</p>
                 <p className="text-green-600"> 55% off</p>
               </div>
@@ -164,7 +184,7 @@ export default function ProductDetails() {
                 </div>
               </div>
 
-              <form className="mt-10">
+              <form  className="mt-10">
                 {/* Sizes */}
                 <div className="mt-10">
                   <div className="flex items-center justify-between">
@@ -257,15 +277,15 @@ export default function ProductDetails() {
 
                 <div className="space-y-6">
                   <p className="text-base text-gray-900">
-                    {product.description}
+                    {products.product?.data?.description}
                   </p>
                 </div>
               </div>
 
               <div className="mt-10">
-                <h3 className="text-sm font-medium text-gray-900">
+                {/* <h3 className="text-sm font-medium text-gray-900">
                   Highlights
-                </h3>
+                </h3> */}
 
                 <div className="mt-4">
                   <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
@@ -279,18 +299,19 @@ export default function ProductDetails() {
               </div>
 
               <div className="mt-10">
-                <h2 className="text-sm font-medium text-gray-900">Details</h2>
+                {/* <h2 className="text-sm font-medium text-gray-900">Details</h2> */}
 
-                <div className="mt-4 space-y-6">
+                {/* <div className="mt-4 space-y-6">
                   <p className="text-sm text-gray-600">{product.details}</p>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
         </section>
+        
 
         {/*similar products*/}
-        <section className="pt-10">
+        {/* <section className="pt-10">
           <h1 className="py-5 text-xl font-bold">Simliar Produts</h1>
 
           <div className="flex flex-wrap space-y-5">
@@ -298,7 +319,7 @@ export default function ProductDetails() {
               <HomeSectionCard product={item} />
             ))}
           </div>
-        </section>
+        </section> */}
       </div>
     </div>
   );

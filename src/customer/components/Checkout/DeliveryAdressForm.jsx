@@ -1,8 +1,13 @@
 import { Box, Button, Grid, TextField } from "@mui/material";
 import React from "react";
 import AdressCard from "../AdressCard/AdressCard";
+import { useDispatch,useSelector } from 'react-redux';
+import { createOrder } from "../../../state/Order/Action";
+import { useNavigate } from "react-router-dom";
 
 const DeliveryAdressForm=()=> {
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
   
   const handleSubmit=(e)=>{
     e.preventDefault();
@@ -17,6 +22,8 @@ const DeliveryAdressForm=()=> {
       zipCode:data.get("zipCode"),
       phoneNumber:data.get("phoneNumber")
     }
+    const orderData={adress,navigate}
+    dispatch(createOrder(orderData))
     console.log("adress",adress)
   }
 
