@@ -1,14 +1,14 @@
 import React from 'react'
 
-function AdressCard() {
+function AdressCard({address}) {
   return (
     <div>
         <div className='space-y-3'>
-        <p className='font-semibold'>Madan Mohan Das</p>
-        <p>Bankashai ,Bhadrak</p>
+        <p className='font-semibold'>{`${address?.firstName} ${address?.lastName}`}</p>
+        {/* <p>{address.state}Bankashai ,Bhadrak</p> */}
         <div className='space-y-1'>
             <p className='font-semibold'>Phone Number</p>
-            <p>963752155</p>
+            {/* <p>{address?.mobile}</p> */}
         </div>
     </div>
     </div>

@@ -13,7 +13,7 @@ const DeliveryAdressForm=()=> {
     e.preventDefault();
     console.log("adress")
     const data = new FormData(e.currentTarget);
-    const adress={
+    const address={
       firstName:data.get("firstName"),
       lastName:data.get("lastName"),
       streetAdress:data.get("StreetAdress"),
@@ -22,9 +22,10 @@ const DeliveryAdressForm=()=> {
       zipCode:data.get("zipCode"),
       phoneNumber:data.get("phoneNumber")
     }
-    const orderData={adress,navigate}
+    const orderData={address,navigate}
+
     dispatch(createOrder(orderData))
-    console.log("adress",adress)
+    console.log("adress",address)
   }
 
 
