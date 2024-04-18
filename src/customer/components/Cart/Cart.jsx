@@ -18,7 +18,6 @@ function Cart() {
     dispatch(getCart());
   }, []);
   console.log("Cart datas are here", cart.cart?.cartItems);
-
   // const handleDeleteItem = (itemId) => {
   //   dispatch(deleteCartItem(itemId)); // Dispatch action to delete cart item
   // };
