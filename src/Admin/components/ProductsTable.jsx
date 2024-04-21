@@ -2,7 +2,7 @@ import { Avatar, Button, Card, CardHeader, Paper, Table, TableBody, TableCell, T
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { store } from '../../state/store';
-import { findProducts } from '../../state/Product/Action';
+import { deleteProduct, findProducts } from '../../state/Product/Action';
 
 // const rows =[
     
@@ -13,6 +13,10 @@ const ProductsTable = () => {
   const {products}=useSelector(store=>store);
 
   console.log("products ---- ",products)
+
+  const handleProductDelete=(productId)=>{
+    dispatch(deleteProduct(productId))
+  }
 
   useEffect(()=>{
     const data={
@@ -75,7 +79,7 @@ const productObject = {
               <TableCell align="left">{item.price}</TableCell>
               <TableCell align="left">{item.quantity}</TableCell>
               <TableCell align="left">
-                <Button variant='outlined'>DELETE</Button>
+                <Button onClick={()=>handleProductDelete(item.id)} variant='outlined'>DELETE</Button>
               </TableCell>
             </TableRow>
           ))}
