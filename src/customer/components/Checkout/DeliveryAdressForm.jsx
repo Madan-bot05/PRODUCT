@@ -30,25 +30,8 @@ const DeliveryAdressForm=()=> {
 
 
   return (
-    <div>
+    <div className="">
       <Grid container spacing={4}>
-        <Grid
-          xs={12}
-          lg={5}
-          className="border rounded-e-md shadow-md h-[30.5rem] overflow-y-scroll"
-        >
-          <div className="p-5 py-7 border-b cursor-pointer">
-            <AdressCard />
-            <Button
-              sx={{ mt: 2, bgcolor: "green" }}
-              size="large"
-              variant="contained"
-            >
-              Deliver Here
-            </Button>
-          </div>
-        </Grid>
-
         <Grid item xs={12} lg={7}>
           <Box className="border rounded-s-md shadow-md p-5">
             <form onSubmit={handleSubmit}>

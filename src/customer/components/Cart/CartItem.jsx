@@ -18,10 +18,21 @@ const handleUpdateCartItem=(num)=>{
   const data={data:{quantity:item.quantity+num},CartItemId:item?.id}
   dispatch(updateItemToCart(data))
 }
-const handleRemoveCartItem=()=>{
-  dispatch(removeItemToCart(item.id))
-}
+// const handleRemoveCartItem=()=>{
+//   dispatch(removeItemToCart(item.id))
+// }
 
+const handleRemoveCartItem = async () => {
+  try {
+    await dispatch(removeItemToCart(item.id));
+    // Optionally, you can update the cart state in your component
+    // without waiting for the Redux action to complete
+    // This assumes that the Redux action updates the cart state correctly
+    // dispatch({ type: 'REMOVE_ITEM_FROM_CART', payload: item.id });
+  } catch (error) {
+    console.error('Error removing item from cart:', error);
+  }
+};
 
   return (
     <div className="p-5 shadow-lg border rounded-md">
@@ -46,13 +57,13 @@ const handleRemoveCartItem=()=>{
           </div>
           <div className="lg:flex items-center lg:space-x-10 py-10">
             <div className="flex items-center space-x-2">
-              <IconButton onClick={()=>handleUpdateCartItem(-1)}  disabled={item.quantity<=1} sx={{ color: "rgb(63,57,232)" }}>
+              {/* <IconButton onClick={()=>handleUpdateCartItem(-1)}  disabled={item.quantity<=1} sx={{ color: "rgb(63,57,232)" }}>
                 <RemoveCircleOutlineIcon />
               </IconButton>
               <span className="py-1 px-7 border rounded-sm">{item.quantity}</span>
               <IconButton  onClick={()=>handleUpdateCartItem(1)} sx={{ color: "rgb(202,91,91)" }}>
                 <AddCircleOutlineIcon />
-              </IconButton>
+              </IconButton> */}
             </div>
             <div>
               {/* <Button sx={{color:"rgb(202,91,91)"}} >Remove</Button> */}

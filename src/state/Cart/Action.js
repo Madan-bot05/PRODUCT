@@ -4,6 +4,9 @@ import {
   ADD_ITEM_TO_CART_REQUEST,
   ADD_ITEM_TO_CART_SUCCESS,
   GET_CART_FAILURE,
+  GET_CART_ITEM_COUNT_FAILURE,
+  GET_CART_ITEM_COUNT_REQUEST,
+  GET_CART_ITEM_COUNT_SUCCESS,
   GET_CART_REQUEST,
   GET_CART_SUCCESS,
   REMOVE_CART_ITEM_FAILURE,
@@ -56,5 +59,17 @@ export const updateItemToCart = (reqData) => async (dispatch) => {
     dispatch({ type: UPDATE_CART_ITEM_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: UPDATE_CART_ITEM_FAILURE, payload: error.message });
+  }
+};
+
+
+export const getCartItemCount = () => async (dispatch) => {
+  dispatch({ type: GET_CART_ITEM_COUNT_REQUEST });
+  try {
+    const { data } = await api.get(`/api/cart_items/count`);
+    console.log("Cart item count:", data); // Log the data here
+    dispatch({ type: GET_CART_ITEM_COUNT_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: GET_CART_ITEM_COUNT_FAILURE, payload: error.message });
   }
 };
