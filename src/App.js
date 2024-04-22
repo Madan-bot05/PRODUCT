@@ -22,7 +22,7 @@ function App() {
   return (
     <div>
       <div className="">
-      <Navigation/>
+      {/* <Navigation/> */}
       </div>
       <div className="pt-20">
       <Routes>
