@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import AuthModal from '../Auth/AuthModal'
 import { getUser, logout } from '../../../state/Auth/Action'
+import { getCart, getCartItemCount } from '../../../state/Cart/Action'
 
 
 const navigation = {
@@ -141,6 +142,8 @@ function classNames(...classes) {
 export default function Navigation() {
   const [open, setOpen] = useState(false)
 
+  const { cart } = useSelector((store) => store);
+
   const navigate=useNavigate();
 
   const [openAuthModal, setOpenAuthModal] =useState(false)
@@ -200,6 +203,29 @@ export default function Navigation() {
     dispatch(logout())
     handleUserCloserMenu()
   }
+
+
+  // useEffect(() => {
+  //   if (jwt) {
+  //     dispatch(getCartItemCount(jwt)).then((count) => {
+  //       setCartCount(count);
+  //     });
+  //   }
+  // }, [jwt, dispatch]);
+  // console.log("cart count ",cartCount)
+
+  useEffect(() => {
+    dispatch(getCart());
+  }, []);
+  console.log("Cart datas are here", cart.cart?.cartItems);
+
+  const cartItemCount = cart.cart?.cartItems.length ?? 0;
+console.log("Number of cart items:", cartItemCount);
+
+
+
+  
+
 
   return (
     <div className="bg-white fixed top-0 left-0 w-full z-50 shadow-md">
@@ -368,7 +394,7 @@ export default function Navigation() {
                   <span className="sr-only">Your Company</span>
                   <img
                     className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                    src="https://cdn1.vectorstock.com/i/1000x1000/16/45/shopping-cart-icon-vector-10471645.jpg"
                     alt=""
                   />
                 </a>
@@ -554,7 +580,7 @@ export default function Navigation() {
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
                     />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{cartItemCount}</span>
                     <span className="sr-only">items in cart, view bag</span>
                   </Button>
                 </div>

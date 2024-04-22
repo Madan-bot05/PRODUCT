@@ -1,46 +1,118 @@
 import React from 'react'
 import AdressCard from '../AdressCard/AdressCard'
 import OrderTracker from './OrderTracker'
-import { Box, Grid } from '@mui/material'
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { deepPurple } from '@mui/material/colors'
 import { StarIcon } from '@heroicons/react/24/outline'
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { getOrderById } from '../../../state/Order/Action'
 
 function OrderDetails() {
+
+    const dispatch = useDispatch();
+    const jwt = localStorage.getItem("jwt");
+    const { orderId } = useParams();
+    const { order } = useSelector((store) => store);
+  
+    console.log("order", order.order);
+  
+    useEffect(() => {
+      dispatch(getOrderById(orderId));
+    }, []);
+  
+    const navigate = useNavigate();
+
+
   return (
-    <div className=' mt-5 px-20 lg:px-20 '>
-        <div>
-            <h1 className='font-bold text-lg py-7'>Delivery Adress</h1>
-        <AdressCard/>
-        </div>
-
-
-        <div className='py-20'>
-            <OrderTracker activeStep={3}/>
-        </div>
-        <Grid className='space-x-5' container>
-            <Grid item container className="shadow-xl rounded-md p-5 border" sx={{alignItems:"center",justifyConetent:'space-between'}}>
-                <Grid item xs={6}>
-                    <div>
-                        <img className='w-[5rem] h-[5rem] object-cover object-top' src="data:image/jpeg;base64,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" alt="" />
-                        <div className='space-y-2 ml-5'>
-                            <p>vfuvciuysgu8wygf8ow</p>
-                            <p className='space-x-5'><span>uygo8fewgbo8gw8ofg</span></p>
-                            <p><span>wef878rgrf8g8ggwefwe</span></p>
-                            <p>456521</p>
-                        </div>
-                         </div>
-                </Grid>
-                <Grid item>
-                    <Box sx={{color:deepPurple[500]}}>
-                        <StarIcon sx={{fontSize:"1rem"}} className='px-2 text-5xl'/>
-                        <span>Rate And Review Product</span>
-                    </Box>
-                </Grid>
-            </Grid>
+    <div className=" px-2 lg:px-36 space-y-7 ">
+      <Grid container className="p-3 shadow-lg">
+        <Grid xs={12}>
+          <p className="font-bold text-lg py-2">Delivery Address</p>
         </Grid>
-        
+        <Grid item xs={6}>
+          <AdressCard address={order.order?.shippingAddress} />
+        </Grid>
+      </Grid>
+      <Box className="p-5 shadow-lg border rounded-md">
+        <Grid
+          container
+          sx={{ justifyContent: "space-between", alignItems: "center" }}
+        >
+          <Grid item xs={9}>
+            <OrderTracker
+              activeStep={
+                order.order?.orderStatus === "PLACED"
+                  ? 1
+                  : order.order?.orderStatus === "CONFIRMED"
+                  ? 2
+                  : order.order?.orderStatus === "SHIPPED"
+                  ? 3
+                  : 5
+              }
+            />
+          </Grid>
+          <Grid item>
+           {order.order?.orderStatus==="DELIVERED" && <Button sx={{ color: ""}} color="error" variant="text" >
+              RETURN
+            </Button>}
+
+            {order.order?.orderStatus!=="DELIVERED" && <Button sx={{ color: deepPurple[500] }} variant="text">
+              cancel order
+            </Button>}
+          </Grid>
+        </Grid>
+      </Box>
+
+    
+
+      <Grid container className="space-y-5">
+        {order.order?.orderItems.map((item) => (
+          <Grid
+            container
+            item
+            className="shadow-xl rounded-md p-5 border"
+            sx={{ alignItems: "center", justifyContent: "space-between" }}
+          >
+            <Grid item xs={6}>
+              {" "}
+              <div className="flex  items-center ">
+                <img
+                  className="w-[5rem] h-[5rem] object-cover object-top"
+                  src={item?.product.imageUrl}
+                  alt=""
+                />
+                <div className="ml-5 space-y-2">
+                  <p className="">{item.product.title}</p>
+                  <p className="opacity-50 text-xs font-semibold space-x-5">
+                    <span>Color: pink</span> <span>Size: {item.size}</span>
+                  </p>
+                  <p>Seller: {item.product.brand}</p>
+                  <p>₹{item.price} </p>
+                </div>
+              </div>
+            </Grid>
+            <Grid item>
+              {
+                <Box
+                  sx={{ color: deepPurple[500] }}
+                  onClick={() => navigate(`/account/rate/${item.product.id}`)}
+                  className="flex items-center cursor-pointer"
+                >
+                  <StarIcon
+                    sx={{ fontSize: "2rem" }}
+                    className="px-2 text-5xl"
+                  />
+                  <span>Rate & Review Product</span>
+                </Box>
+              }
+            </Grid>
+          </Grid>
+        ))}
+      </Grid>
     </div>
-  )
+  );
 }
 
 export default OrderDetails
