@@ -31,7 +31,7 @@ export const getOrders=() => {
         dispatch({type:GET_ORDER_REQUEST});
         try {
             
-            const response = await api.get(`/api/admin/order/`);
+            const response = await api.get(`/api/admin/orders/`);
             console.log("get all order ", response.data);
             dispatch({type:GET_ORDER_SUCCESS,payload:response.data});
         } catch (error) {
@@ -46,7 +46,7 @@ export const confirmOrder = (orderid) => async (dispatch)=>{
     dispatch({type:CONFIRMED_ORDER_REQUEST});
 
     try {
-        const response =await api.put(`/api/admin/order/${orderid}/confirmed`);
+        const response =await api.put(`/api/admin/orders/${orderid}/confirmed`);
         const data = response.data;
         console.log("confirm_order ",data)
         dispatch({type:CONFIRMED_ORDER_SUCCESS,payload:data});
@@ -59,7 +59,7 @@ export const shipOrder = (orderid)=>{
     return async (dispatch)=>{
         try {
             dispatch({type:SHIP_ORDER_REQUEST});
-            const {data} =await api.put(`/api/admin/order/${orderid}/ship`);
+            const {data} =await api.put(`/api/admin/orders/${orderid}/ship`);
             console.log(" shipped order",data)
             dispatch({type:SHIP_ORDER_SUCCESS,payload:data});
         } catch (error) {
@@ -72,7 +72,7 @@ export const deliveredOrder = (orderid)=>async (dispatch)=>{
     dispatch({type:DELIVERED_ORDER_REQUEST});
 
     try {
-        const response=await api.put(`/api/admin/order/${orderid}/deliver`);
+        const response=await api.put(`/api/admin/orders/${orderid}/deliver`);
         const data=response.data;
         console.log("delivered order",data)
         dispatch({type:DELIVERED_ORDER_SUCCESS,payload:data});
